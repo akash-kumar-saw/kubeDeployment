@@ -1,4 +1,4 @@
-# Kubernetes Deployment Manager
+# KubeDeployment - Kubernetes Deployment Manager
 KubeDeployment is a command-line tool for managing Kubernetes deployments using the Kubernetes API. It supports the creation, retrieval, updating, and deletion of deployments in a Kubernetes cluster.
 
 ## Installation
@@ -73,6 +73,5 @@ kubeDeployment delete --deployment=<name-of-deployment> --namespace=<namespace>
 
 ## Dependencies
 This tool uses the following dependencies:
-
-k8s.io/client-go - Kubernetes client library for Go
-gopkg.in/yaml.v2 - YAML parser for Go
+- k8s.io/client-go - Kubernetes client library for Go
+- gopkg.in/yaml.v2 - YAML parser for Go
