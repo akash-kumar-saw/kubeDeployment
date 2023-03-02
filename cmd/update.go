@@ -22,13 +22,11 @@ import (
 // updateCmd represents the update command
 var updateCmd = &cobra.Command{
 	Use:   "update",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "KubeDeployment - Update",
+	Long: `To update an existing deployment, use the update subcommand and provide the path to your updated deployment.yaml file using the "deployment" flag and the namespace using the "namespace" flag.
+	
+	Example : kubeDeployment update --deployment=<path-to-new-deployment.yaml> --namespace=<namespace>
+	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		kubeconfig := getKubeConfig()
 

@@ -16,13 +16,11 @@ import (
 // applyCmd represents the apply command
 var applyCmd = &cobra.Command{
 	Use:   "apply",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "KubeDeployment - Apply",
+	Long: `To apply a configuration to a Kubernetes cluster, use the apply subcommand and provide the path to your kubeconfig.yaml file using the "kubeconfig" flag.
+	
+	Example : kubeDeployment apply --kubeconfig=<path-to-kubeconfig.yaml>
+	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		kubeconfig, err := cmd.Flags().GetString("kubeconfig")
 		if err != nil {
@@ -30,6 +28,7 @@ to quickly create a Cobra application.`,
 		}
 
 		os.WriteFile("kubeconfig.txt", []byte(kubeconfig), 0644)
+		fmt.Printf("Kubeconfig applied successfully\n")
 	},
 }
 
