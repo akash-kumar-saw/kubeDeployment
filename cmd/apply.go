@@ -27,7 +27,11 @@ var applyCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		os.WriteFile("kubeconfig.txt", []byte(kubeconfig), 0644)
+		err = os.WriteFile("kubeconfig.txt", []byte(kubeconfig), 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		fmt.Printf("Kubeconfig applied successfully\n")
 	},
 }

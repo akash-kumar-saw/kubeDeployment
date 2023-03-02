@@ -31,6 +31,9 @@ var deleteCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
+		if deployment == "" {
+			log.Fatal("Please provide the deployment.yaml file")
+		}
 
 		namespace, err := cmd.Flags().GetString("namespace")
 		if err != nil {

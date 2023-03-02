@@ -58,9 +58,18 @@ func readDeployment(clientset *kubernetes.Clientset, namespace string) {
 		log.Fatal(err)
 	}
 
+	deploymentLength := len(deployments.Items)
+
 	for _, deployment := range deployments.Items {
 		fmt.Printf("Deployment: %s\n", deployment.Name)
-		fmt.Printf("Replicas: %d\n", *deployment.Spec.Replicas)
 		fmt.Printf("Image: %s\n", deployment.Spec.Template.Spec.Containers[0].Image)
+		fmt.Printf("Namespace: %s\n", deployment.Namespace)
+		fmt.Printf("Replicas: %d\n", *deployment.Spec.Replicas)
+
+		if deploymentLength > 1 {
+			fmt.Printf("********************\n")
+			deploymentLength--
+		}
+
 	}
 }
