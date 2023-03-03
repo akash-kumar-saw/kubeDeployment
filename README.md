@@ -74,4 +74,7 @@ kubeDeployment delete --deployment=<name-of-deployment> --namespace=<namespace>
 ## Dependencies
 This tool uses the following dependencies:
 - k8s.io/client-go - Kubernetes client library for Go
+- k8s.io/api - Kubernetes Api library for Go
+- k8s.io/apimachinery - Kubernetes Api Machinery library for Go
+- github.com/spf13/cobra - Cobra library for Go
 - gopkg.in/yaml.v2 - YAML parser for Go
