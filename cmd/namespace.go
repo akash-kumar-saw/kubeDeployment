@@ -77,7 +77,7 @@ func init() {
 
 	namespaceCmd.PersistentFlags().String("action", "", "Action to perform with the namespace")
 	namespaceCmd.PersistentFlags().String("name", "", "Name for the namespace")
-	namespaceCmd.PersistentFlags().String("configname", "", "Name of the kubeconfig file")
+	namespaceCmd.PersistentFlags().String("configname", getdefaultConfig(), "Name of the kubeconfig file")
 }
 
 func createNamespace(clientset *kubernetes.Clientset, name string) {

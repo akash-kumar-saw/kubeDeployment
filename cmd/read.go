@@ -55,7 +55,7 @@ var readCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(readCmd)
 
-	readCmd.PersistentFlags().String("configname", "", "Name for kubeconfig file")
+	readCmd.PersistentFlags().String("configname", getdefaultConfig(), "Name for kubeconfig file")
 	readCmd.PersistentFlags().String("namespace", "default", "Namespace for the deployment")
 }
 

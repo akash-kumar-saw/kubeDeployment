@@ -34,7 +34,7 @@ var applyCmd = &cobra.Command{
 		}
 
 		if configname == "" {
-			log.Fatal("*** Please provide a name for the kubeconfig file using 'configname' option ***")
+			log.Fatal("Please provide a name for the kubeconfig file using 'configname' option")
 		}
 
 		err = os.WriteFile("./config/"+strings.Trim(configname, " \t\n")+".txt", []byte(kubeconfig), 0644)

@@ -67,7 +67,7 @@ var createCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(createCmd)
 
-	createCmd.PersistentFlags().String("configname", "", "Name of the kubeconfig file")
+	createCmd.PersistentFlags().String("configname", getdefaultConfig(), "Name of the kubeconfig file")
 	createCmd.PersistentFlags().String("deployment", "", "Path to the YAML file for the deployment")
 	createCmd.PersistentFlags().String("namespace", "default", "Namespace for the deployment")
 }
@@ -79,6 +79,15 @@ func getKubeConfig(configname string) string {
 	}
 
 	return string(kubeconfig)
+}
+
+func getdefaultConfig() string {
+	defaultConfig, err := os.ReadFile("./config/default.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return string(defaultConfig)
 }
 
 func createDeployment(clientset *kubernetes.Clientset, deploymentFile string, namespace string) {

@@ -66,7 +66,7 @@ var updateCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(updateCmd)
 
-	updateCmd.PersistentFlags().String("configname", "", "Name for kubeconfig file")
+	updateCmd.PersistentFlags().String("configname", getdefaultConfig(), "Name for kubeconfig file")
 	updateCmd.PersistentFlags().String("deployment", "", "Path to the YAML file for the deployment")
 	updateCmd.PersistentFlags().String("namespace", "default", "Namespace for the deployment")
 }
