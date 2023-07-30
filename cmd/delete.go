@@ -25,7 +25,13 @@ var deleteCmd = &cobra.Command{
 	Example : kubeDeployment delete --deployment=<name-of-deployment> --namespace=<namespace>
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
-		kubeconfig := getKubeConfig()
+
+		configname, err := cmd.Flags().GetString("configname")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		kubeconfig := getKubeConfig(configname)
 
 		deployment, err := cmd.Flags().GetString("deployment")
 		if err != nil {
@@ -57,6 +63,7 @@ var deleteCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(deleteCmd)
 
+	deleteCmd.PersistentFlags().String("configname", "", "Name for kubeconfig file")
 	deleteCmd.PersistentFlags().String("deployment", "", "Name of the Deployment")
 	deleteCmd.PersistentFlags().String("namespace", "default", "Namespace for the deployment")
 }

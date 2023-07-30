@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 
@@ -28,7 +29,13 @@ var createCmd = &cobra.Command{
 	Example : kubeDeployment create --deployment=<path-to-deployment.yaml> --namespace=<namespace>
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
-		kubeconfig := getKubeConfig()
+
+		configname, err := cmd.Flags().GetString("configname")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		kubeconfig := getKubeConfig(configname)
 
 		deployment, err := cmd.Flags().GetString("deployment")
 		if err != nil {
@@ -60,12 +67,13 @@ var createCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(createCmd)
 
+	createCmd.PersistentFlags().String("configname", "", "Name of the kubeconfig file")
 	createCmd.PersistentFlags().String("deployment", "", "Path to the YAML file for the deployment")
 	createCmd.PersistentFlags().String("namespace", "default", "Namespace for the deployment")
 }
 
-func getKubeConfig() string {
-	kubeconfig, err := os.ReadFile("kubeconfig.txt")
+func getKubeConfig(configname string) string {
+	kubeconfig, err := os.ReadFile("./config/" + strings.Trim(configname, " \t\n") + ".txt")
 	if err != nil {
 		log.Fatal(err)
 	}

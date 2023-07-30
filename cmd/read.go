@@ -25,7 +25,13 @@ var readCmd = &cobra.Command{
 	Example : kubeDeployment read --namespace=<namespace>
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
-		kubeconfig := getKubeConfig()
+
+		configname, err := cmd.Flags().GetString("configname")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		kubeconfig := getKubeConfig(configname)
 
 		namespace, err := cmd.Flags().GetString("namespace")
 		if err != nil {
@@ -49,6 +55,7 @@ var readCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(readCmd)
 
+	readCmd.PersistentFlags().String("configname", "", "Name for kubeconfig file")
 	readCmd.PersistentFlags().String("namespace", "default", "Namespace for the deployment")
 }
 
