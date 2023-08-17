@@ -42,5 +42,5 @@ var defaultCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(defaultCmd)
 
-	applyCmd.PersistentFlags().String("configname", "", "Name for the kubeconfig file")
+	defaultCmd.PersistentFlags().String("configname", getdefaultConfig(), "Name for the kubeconfig file")
 }

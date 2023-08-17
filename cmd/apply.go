@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -37,7 +38,16 @@ var applyCmd = &cobra.Command{
 			log.Fatal("Please provide a name for the kubeconfig file using 'configname' option")
 		}
 
-		err = os.WriteFile("./config/"+strings.Trim(configname, " \t\n")+".txt", []byte(kubeconfig), 0644)
+		configDir := "./config/"
+		err = os.MkdirAll(configDir, os.ModePerm)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		configFileName := strings.TrimSpace(configname) + ".txt"
+		configFilePath := filepath.Join(configDir, configFileName)
+
+		err = os.WriteFile(configFilePath, []byte(kubeconfig), 0644)
 		if err != nil {
 			log.Fatal(err)
 		}

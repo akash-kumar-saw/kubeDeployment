@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -82,7 +83,27 @@ func getKubeConfig(configname string) string {
 }
 
 func getdefaultConfig() string {
-	defaultConfig, err := os.ReadFile("./config/default.txt")
+	filename := "./config/default.txt"
+	_, err := os.Stat(filename)
+	if err != nil {
+		if os.IsNotExist(err) {
+			// Create the directory if it doesn't exist
+			configDir := filepath.Dir(filename)
+			os.MkdirAll(configDir, os.ModePerm)
+
+			// Create the empty default.txt file
+			emptyData := []byte{}
+			err := os.WriteFile(filename, emptyData, 0644)
+			if err != nil {
+				log.Fatal(err)
+			}
+		} else {
+			fmt.Printf("Error checking file: %v\n", err)
+			log.Fatal(err)
+		}
+	}
+
+	defaultConfig, err := os.ReadFile(filename)
 	if err != nil {
 		log.Fatal(err)
 	}
