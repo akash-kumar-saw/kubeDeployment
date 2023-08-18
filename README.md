@@ -1,5 +1,5 @@
 # Kubernetes Deployment Manager
-KubeDeployment is a command-line tool for managing Kubernetes deployments using the Kubernetes API. It supports the creation, retrieval, updating, and deletion of deployments in a Kubernetes cluster.
+KubeDeployment is a powerfull command-line tool for managing Kubernetes deployments in multiple Kubernetes Cluster at once. It supports the creation, retrieval, updating, and deletion of deployments in a Kubernetes cluster.
 
 ## Installation
 - Clone the repository from GitHub:
@@ -17,65 +17,80 @@ go build .
 ```
 - Run the following command to start the tool:
 ```bash
-kubeDeployment
+./kubeDeployment
 ```
 
 ## Usage
-To use this tool, you must have a kubeconfig file that allows access to your Kubernetes cluster. You can pass the path to your kubeconfig file using the -kubeconfig flag when using the apply subcommand.
+To use this tool, you must have at least one kubeconfig file that allows access to your Kubernetes cluster. You can pass the path to your kubeconfig file using the --kubeconfig flag and associate it with a name using the --configname flag while using the apply subcommand.
 
 ```bash
-kubeDeployment apply --kubeconfig=<path-to-kubeconfig>
+kubeDeployment apply --kubeconfig=<path-to-kubeconfig> --configname=<name-for-kubeconfig>
 ```
 
 ## Subcommands
 This tool uses subcommands to specify the action to perform. The available subcommands are:
 
-- apply - applies a configuration to a Kubernetes cluster
+- apply - add a new kubeconfig file
+- default - select a default kubeconfig
 - create - creates a new deployment
 - read - retrieves information about deployments
 - update - updates an existing deployment
 - delete - deletes an existing deployment
+- namespace - manages a namespace
 
 ### Apply
-To apply a configuration to a Kubernetes cluster, use the apply subcommand and provide the path to your kubeconfig.yaml file using the "kubeconfig" flag.
+To add a new kubeconfig file, use the apply subcommand and provide the path to your kubeconfig.yaml file using the "kubeconfig" flag and associate it with a name using the "configname" flag.
 
 ```bash
-kubeDeployment apply --kubeconfig=<path-to-kubeconfig.yaml>
+kubeDeployment apply --kubeconfig=<path-to-kubeconfig.yaml> --configname=<name-for-kubeconfig>
+```
+
+### Default
+To select a default kubeconfig file, use the default subcommand and provide the name of the kubeconfig added via apply subcommand using the "configname" flag.
+
+```bash
+kubeDeployment default --configname=<name-of-kubeconfig>
 ```
 
 ### Create
-To create a new deployment, use the create subcommand and provide the path to your deployment.yaml file using the "deployment" flag and the namespace using the "namespace" flag.
+To create a new deployment, use the create subcommand and provide the path to your deployment.yaml file using the "deployment" flag, the namespace using the "namespace" flag and the kubeconfig using "configname" flag.
 
 ```bash
-kubeDeployment create --deployment=<path-to-deployment.yaml> --namespace=<namespace>
+kubeDeployment create --deployment=<path-to-deployment.yaml> --namespace=<namespace> --configname=<name-of-kubeconfig>
 ```
 
 ### Read
-To retrieve information about deployments, use the read subcommand and provide the namespace using the "namespace" flag.
+To retrieve information about deployments, use the read subcommand and provide the namespace using the "namespace" flag and the kubeconfig using "configname" flag.
 
 ```bash
-kubeDeployment read --namespace=<namespace>
+kubeDeployment read --namespace=<namespace> --configname=<name-of-kubeconfig>
 ```
 
 ### Update
-To update an existing deployment, use the update subcommand and provide the path to your updated deployment.yaml file using the "deployment" flag and the namespace using the "namespace" flag.
+To update an existing deployment, use the update subcommand and provide the path to your updated deployment.yaml file using the "deployment" flag, the namespace using the "namespace" flag and the kubeconfig using "configname" flag.
 
 ```bash
-kubeDeployment update --deployment=<path-to-new-deployment.yaml> --namespace=<namespace>
+kubeDeployment update --deployment=<path-to-new-deployment.yaml> --namespace=<namespace> --configname=<name-of-kubeconfig>
 ```
 
 ### Delete
-To delete an existing deployment, use the delete subcommand and provide the name of the deployment you want to delete using "deployment" flag and the namespace using the "namespace" flag.
+To delete an existing deployment, use the delete subcommand and provide the name of the deployment you want to delete using "deployment" flag, the namespace using the "namespace" flag and the kubeconfig using "configname" flag.
 
 ```bash
-kubeDeployment delete --deployment=<name-of-deployment> --namespace=<namespace>
+kubeDeployment delete --deployment=<name-of-deployment> --namespace=<namespace> --configname=<name-of-kubeconfig>
 ```
 
-## Dependencies
-This tool uses the following dependencies:
+### Namespace
+To view the namespace present in the kubernetes cluster, use the namespace subcommand and provide the kubeconfig using "configname" flag.
 
-k8s.io/client-go - Kubernetes client library for Go
-gopkg.in/yaml.v2 - YAML parser for Go
+```bash
+kubeDeployment namespace --configname=<name-of-kubeconfig>
+```
+
+To create or delete a namespace in the kubernetes cluster, use the namespace subcommand and provide action (either 'create' or 'delete') using "action" flag, name of the namespace using "name" flag and the kubeconfig using "configname".
+
+```bash
+kubeDeployment namespace --action=<create or delete> --name=<name-of-namespace> --configname=<name-of-kubeconfig>
 
 ## Contributing
 
