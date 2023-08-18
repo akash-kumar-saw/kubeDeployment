@@ -92,7 +92,7 @@ func createNamespace(clientset *kubernetes.Clientset, name string) {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("Namespace %s created successfully.\n", newNamespace)
+	fmt.Printf("Namespace %s created successfully.\n", name)
 }
 
 func deleteNamespace(clientset *kubernetes.Clientset, name string) {
