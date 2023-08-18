@@ -1,5 +1,5 @@
-# Kubernetes Deployment Manager
-KubeDeployment is a powerfull command-line tool for managing Kubernetes deployments in multiple Kubernetes Cluster at once. It supports the creation, retrieval, updating, and deletion of deployments in a Kubernetes cluster.
+# kubeDeployment - Kubernetes Deployment Manager
+KubeDeployment is a lightweight & powerfull command-line tool for managing Kubernetes deployments in multiple Kubernetes Cluster at once. It supports the creation, retrieval, updating, and deletion of deployments in a Kubernetes cluster.
 
 ## Installation
 - Clone the repository from GitHub:
